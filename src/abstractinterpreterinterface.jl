@@ -28,6 +28,8 @@ struct JETInterpreter <: AbstractInterpreter
     # for sequential assignment of virtual global variables
     id::Symbol
 
+    stackframes::Vector{InferenceState}
+
     # reports found so far
     reports::Vector{InferenceErrorReport}
 
@@ -50,6 +52,7 @@ struct JETInterpreter <: AbstractInterpreter
                             compress          = false,
                             discard_trees     = false,
                             id                = gensym(:JETInterpreterID),
+                            stackframes       = InferenceState[],
                             reports           = InferenceErrorReport[],
                             exception_reports = ExceptionReport[],
                             concretized       = BitVector(),
@@ -65,6 +68,7 @@ struct JETInterpreter <: AbstractInterpreter
                    discard_trees,
                    LocalCache(),
                    id,
+                   stackframes,
                    reports,
                    exception_reports,
                    concretized,
